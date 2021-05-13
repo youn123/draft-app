@@ -87,9 +87,16 @@ class App extends Component {
 
     this.onChange(EditorState.forceSelection(editorState, selectionState));
 
-    setTimeout(() => {
-      appInsights.trackEvent({name: 'Opened'});
-    }, 1000);
+    fetch('https://rootofevil.azurewebsites.net/draft-app/event', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'text/plain',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        name: 'Opened'
+      })
+    });
   }
 
   onChange = editorState => {
@@ -105,8 +112,15 @@ class App extends Component {
   onVote = vote => {
     this.setState({voted: vote});
 
-    appInsights.trackEvent({name: 'Voted'}, {
-      vote
+    fetch('https://rootofevil.azurewebsites.net/draft-app/event', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'text/plain',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        name: vote
+      })
     });
   }
 
@@ -148,8 +162,8 @@ class App extends Component {
               Save
             </button> */}
             <button
-              style={this.state.voted !== 'Not interested' ? {marginRight: '5px'} : votedButtonStyle}
-              onClick={() => { this.onVote('Not interested'); }}
+              style={this.state.voted !== 'NotInterested' ? {marginRight: '5px'} : votedButtonStyle}
+              onClick={() => { this.onVote('NotInterested'); }}
             >
               Not interested.
             </button>
@@ -160,8 +174,8 @@ class App extends Component {
               This is interesting.
             </button>
             <button
-              style={this.state.voted !== 'Very interested' ? {marginRight: '5px'} : votedButtonStyle}
-              onClick={() => { this.onVote('Very interested'); }}
+              style={this.state.voted !== 'JustWhatIWanted' ? {marginRight: '5px'} : votedButtonStyle}
+              onClick={() => { this.onVote('JustWhatIWanted'); }}
             >
               Just what I need!
             </button>
