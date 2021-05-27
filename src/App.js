@@ -87,16 +87,16 @@ class App extends Component {
 
     this.onChange(EditorState.forceSelection(editorState, selectionState));
 
-    fetch('https://rootofevil.azurewebsites.net/draft-app/event', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'text/plain',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        name: 'Opened'
-      })
-    });
+    // fetch('https://rootofevil.azurewebsites.net/draft-app/event', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-type': 'text/plain',
+    //     'Access-Control-Allow-Origin': '*'
+    //   },
+    //   body: JSON.stringify({
+    //     name: 'Opened'
+    //   })
+    // });
   }
 
   onChange = editorState => {
@@ -153,14 +153,14 @@ class App extends Component {
             }
           }}
         />
-        <div style={{marginLeft: '5%'}}>
+        {/* <div style={{marginLeft: '5%'}}>
           <p style={{marginBottom: '10px'}}>Thanks for taking the time to look. It would help if could tell me what you think.</p>
           <div>
-            {/* <button onClick={() => {
+            <button onClick={() => {
               console.log(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())));
             }}>
               Save
-            </button> */}
+            </button>
             <button
               style={this.state.voted !== 'NotInterested' ? {marginRight: '5px'} : votedButtonStyle}
               onClick={() => { this.onVote('NotInterested'); }}
@@ -181,7 +181,7 @@ class App extends Component {
             </button>
             {this.state.voted && <p style={{marginTop: '5px'}}>Thanks :)</p>}
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

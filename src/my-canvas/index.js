@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { LazyBrush } from "lazy-brush";
 import { Catenary } from "catenary-curve";
 
+import {hitTestElement } from './collision.js';
+
 import ResizeObserver from "resize-observer-polyfill";
 
 import drawImage from "./drawImage";
@@ -297,13 +299,19 @@ export default class extends PureComponent {
 
   handleDrawMove = e => {
     e.preventDefault();
-
     const { x, y } = this.getPointerPos(e);
     this.handlePointerMove(x, y);
   };
 
   handleDrawEnd = e => {
     e.preventDefault();
+
+    const { x, y } = this.getPointerPos(e);
+    console.log(`handleDrawEnd: ${x}, ${y}`);
+
+    if (this.lines.length != 0) {
+      console.log(`Collided: ${hitTestElement(this.lines[0], this.getPointerPos(e), 5)}`);
+    }
 
     // Draw to this end pos
     this.handleDrawMove(e);
